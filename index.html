@@ -3,37 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join the Alpha for [Your Game Name]!</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Join the Dev Log for [Your Game Name]!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset & Body Styling */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        /* Main Container for the Form */
+        .signup-container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            transition: transform 0.3s ease-out;
+        }
+
+        .signup-container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Header Section */
+        .signup-header h1 {
+            font-size: 1.8em; /* 28.8px */
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .signup-header p {
+            font-size: 0.95em; /* 15.2px */
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* Form Styling */
+        .signup-form .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .signup-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9em; /* 14.4px */
+            color: #444;
+        }
+
+        .signup-form input[type="email"],
+        .signup-form input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em; /* 16px */
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .signup-form input[type="email"]:focus,
+        .signup-form input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Submit Button Styling */
+        .submit-button {
+            background: linear-gradient(45deg, #5e70e0, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.05em; /* 16.8px */
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(45deg, #5060c9, #653e8b);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Message Area Styling (for success/error messages) */
+        .form-feedback {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9em; /* 14.4px */
+            display: none; /* Hidden by default */
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .form-feedback.success {
+            background-color: #e6f9f0;
+            color: #1e8752;
+            border: 1px solid #b6e7d0;
+            display: block;
+        }
+
+        .form-feedback.error {
+            background-color: #fdecea;
+            color: #d92c3a;
+            border: 1px solid #f8c0c4;
+            display: block;
+        }
+         .form-feedback.info {
+            background-color: #e0e7ff;
+            color: #3b5bdb;
+            border: 1px solid #c0cfff;
+            display: block;
+        }
+
+
+        /* Footer Styling */
+        .page-footer {
+            margin-top: 40px;
+            font-size: 0.85em; /* 13.6px */
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .page-footer a {
+            color: #fff;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .page-footer a:hover {
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .signup-container {
+                padding: 25px 20px;
+                margin: 15px;
+            }
+            .signup-header h1 {
+                font-size: 1.6em;
+            }
+            .signup-header p {
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Become an Alpha Tester!</h1>
-            <p>Get exclusive access to early builds of [Your Game Name] and help shape its future. Sign up below!</p>
+    <main class="signup-container">
+        <header class="signup-header">
+            <h1>Stay Updated!</h1>
+            <p>Be the first to know about <strong>[Your Game Name]</strong>, get behind-the-scenes content, and news about upcoming releases or playtests.</p>
         </header>
 
-        <form id="signupForm" class="signup-form">
-            <div class="form-group">
-                <label for="emailInput">Your Email:</label>
-                <input type="email" id="emailInput" name="fields[email]" required placeholder="e.g., gamer@example.com">
-                </div>
+        <form id="mailingListForm" class="signup-form" novalidate>
+            <input type="hidden" name="your_service_hidden_field_1_name" value="your_service_hidden_field_1_value"> <div class="form-group">
+                <label for="email">Email Address <span style="color:red;">*</span></label>
+                <input type="email" id="email" name="email_field_name_from_service" required placeholder="you@example.com">
+            </div>
 
             <div class="form-group">
-                <label for="nameInput">Your Name (Optional):</label>
-                <input type="text" id="nameInput" name="fields[name]" placeholder="e.g., Alex">
-                </div>
+                <label for="name">First Name (Optional)</label>
+                <input type="text" id="name" name="name_field_name_from_service" placeholder="Your Name">
+            </div>
 
-            <button type="submit" class="submit-btn">Sign Me Up!</button>
+            <button type="submit" id="submitButton" class="submit-button">Subscribe Now</button>
 
-            <div id="formMessage" class="form-message"></div>
+            <div id="formFeedback" class="form-feedback"></div>
         </form>
+    </main>
 
-        <footer>
-            <p>&copy; 2025 [Your Name/Studio Name]. Follow development on <a href="YOUR_ITCH_IO_LINK_HERE" target="_blank">itch.io</a>!</p>
-        </footer>
-    </div>
+    <footer class="page-footer">
+        <p>&copy; <span id="currentYear"></span> [Your Name/Studio Name]. Find my game on <a href="YOUR_ITCH_IO_PAGE_LINK" target="_blank" rel="noopener noreferrer">itch.io</a>!</p>
+    </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('mailingListForm');
+            const emailInput = document.getElementById('email');
+            const nameInput = document.getElementById('name');
+            const feedbackDiv = document.getElementById('formFeedback');
+            const submitButton = document.getElementById('submitButton');
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // -----------------------------------------------------------------------------
+            // !!! CRITICAL CONFIGURATION !!!
+            // Replace this with the ACTUAL Form Action URL from your email marketing service.
+            // This is where the form data will be sent.
+            const FORM_ACTION_URL = 'YOUR_EMAIL_SERVICE_FORM_ACTION_URL_HERE';
+            // -----------------------------------------------------------------------------
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Stop default browser form submission
+
+                // Clear previous feedback and disable button
+                feedbackDiv.textContent = '';
+                feedbackDiv.className = 'form-feedback'; // Reset classes
+                submitButton.disabled = true;
+                submitButton.textContent = 'Processing...';
+
+                const email = emailInput.value.trim();
+                const name = nameInput.value.trim();
+
+                // Basic client-side validation
+                if (!email) {
+                    displayFeedback('Please enter your email address.', 'error');
+                    emailInput.focus();
+                    resetSubmitButton();
+                    return;
+                }
+                if (!isValidEmail(email)) {
+                    displayFeedback('Please enter a valid email address format.', 'error');
+                    emailInput.focus();
+                    resetSubmitButton();
+                    return;
+                }
+
+                // Prepare data for submission
+                // FormData is suitable for 'application/x-www-form-urlencoded' or 'multipart/form-data'
+                // which is what most email marketing service embeddable forms expect.
+                const formData = new FormData(form); // This automatically picks up all named fields in the form
+
+                // You can also manually append if needed, or if you're not using input names directly:
+                // formData.append(emailInput.name, email); // 'emailInput.name' gets the name attribute from HTML
+                // if (name) {
+                //     formData.append(nameInput.name, name);
+                // }
+                // Add any other hidden fields your service might require if not already in HTML
+                // formData.append('list_id', 'YOUR_LIST_ID_HERE');
+
+                displayFeedback('Submitting your details...', 'info');
+
+                // Using Fetch API to submit the form data
+                fetch(FORM_ACTION_URL, {
+                    method: 'POST',
+                    body: formData,
+                    // Some services' simple form endpoints might work better without specific headers,
+                    // or might require 'application/x-www-form-urlencoded'.
+                    // If you face issues, consult your email service's documentation for their form endpoints.
+                    // mode: 'no-cors' // IMPORTANT: Use 'no-cors' ONLY if you get CORS errors AND
+                                     // your email service's simple form endpoint is designed for it.
+                                     // 'no-cors' means your JS won't be able to read the response,
+                                     // so you typically assume success if no network error occurs.
+                })
+                .then(response => {
+                    // With 'no-cors', response.ok and response.status will be unreliable (0 or false).
+                    // So, if using 'no-cors', we often proceed to success message if fetch itself doesn't throw.
+                    if (response.ok || response.type === 'opaque') { // 'opaque' indicates a 'no-cors' success
+                        displayFeedback('Thank you for subscribing! Please check your email to confirm (if double opt-in is enabled).', 'success');
+                        form.reset(); // Clear the form fields
+                    } else {
+                        // Attempt to get more specific error info if not an opaque response
+                        return response.text().then(text => {
+                           throw new Error(`Server responded with ${response.status}: ${text || 'No additional details'}`);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Form submission error:', error);
+                    displayFeedback(`An error occurred: ${error.message}. Please try again. If the problem persists, contact us.`, 'error');
+                })
+                .finally(() => {
+                    resetSubmitButton();
+                });
+            });
+
+            function isValidEmail(email) {
+                // A more robust regex for email validation
+                const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                return emailRegex.test(email);
+            }
+
+            function displayFeedback(message, type) {
+                feedbackDiv.textContent = message;
+                feedbackDiv.className = 'form-feedback'; // Reset classes
+                feedbackDiv.classList.add(type); // Add 'success', 'error', or 'info'
+            }
+
+            function resetSubmitButton() {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Subscribe Now';
+            }
+        });
+    </script>
 </body>
 </html>
