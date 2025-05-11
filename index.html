@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join My Mailing List!</title>
-    <style>
-        /* Basic inline styles to get you started */
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background-color: #f4f4f4; text-align: center; padding: 20px;}
-        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { margin-bottom: 20px; }
-        /* Add more styles for your form if needed */
-    </style>
+    <title>Join the Alpha for [Your Game Name]!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Stay Updated on My Indie Game!</h1>
-        <p>Get the latest news, development insights, and exclusive sneak peeks directly to your inbox.</p>
+        <header>
+            <h1>Become an Alpha Tester!</h1>
+            <p>Get exclusive access to early builds of [Your Game Name] and help shape its future. Sign up below!</p>
+        </header>
 
-        </div>
+        <form id="signupForm" class="signup-form">
+            <div class="form-group">
+                <label for="emailInput">Your Email:</label>
+                <input type="email" id="emailInput" name="fields[email]" required placeholder="e.g., gamer@example.com">
+                </div>
+
+            <div class="form-group">
+                <label for="nameInput">Your Name (Optional):</label>
+                <input type="text" id="nameInput" name="fields[name]" placeholder="e.g., Alex">
+                </div>
+
+            <button type="submit" class="submit-btn">Sign Me Up!</button>
+
+            <div id="formMessage" class="form-message"></div>
+        </form>
+
+        <footer>
+            <p>&copy; 2025 [Your Name/Studio Name]. Follow development on <a href="YOUR_ITCH_IO_LINK_HERE" target="_blank">itch.io</a>!</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
