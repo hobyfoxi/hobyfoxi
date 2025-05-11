@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join the Dev Log for hobyfoxi!</title>
+    <title>Join the Dev Log for [Your Game Name]!</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* General Reset & Body Styling */
@@ -193,11 +193,11 @@
     <main class="signup-container">
         <header class="signup-header">
             <h1>Stay Updated!</h1>
-            <p>Be the first to know about <strong>[Your Game Name]</strong>, get behind-the-scenes content, and news about upcoming releases or playtests.</p>
+            <p>Be the first to know about <strong>[Your Game Name Here]</strong>, get behind-the-scenes content, and news about upcoming releases or playtests.</p>
         </header>
 
         <form id="mailingListForm" class="signup-form" novalidate>
-            <input type="hidden" name="your_service_hidden_field_1_name" value="your_service_hidden_field_1_value"> <div class="form-group">
+            <div class="form-group">
                 <label for="email">Email Address <span style="color:red;">*</span></label>
                 <input type="email" id="email" name="email_field_name_from_service" required placeholder="you@example.com">
             </div>
@@ -214,22 +214,31 @@
     </main>
 
     <footer class="page-footer">
-        <p>&copy; <span id="currentYear"></span> [Your Name/Studio Name]. Find my game on <a href="YOUR_ITCH_IO_PAGE_LINK" target="_blank" rel="noopener noreferrer">itch.io</a>!</p>
+        <p>&copy; <span id="currentYear"></span> [Your Name/Studio Name Here]. Find my game on <a href="YOUR_ITCH_IO_PAGE_LINK_HERE" target="_blank" rel="noopener noreferrer">itch.io</a>!</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('mailingListForm');
             const emailInput = document.getElementById('email');
-            const nameInput = document.getElementById('name');
+            const nameInput = document.getElementById('name'); // Make sure this ID matches your HTML if you use a name field
             const feedbackDiv = document.getElementById('formFeedback');
             const submitButton = document.getElementById('submitButton');
             document.getElementById('currentYear').textContent = new Date().getFullYear();
 
             // -----------------------------------------------------------------------------
-            // !!! CRITICAL CONFIGURATION !!!
-            // Replace this with the ACTUAL Form Action URL from your email marketing service.
-            // This is where the form data will be sent.
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // CRITICAL CONFIGURATION: FORM ACTION URL
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // This URL is where your form data will be sent. You MUST get this from the
+            // 'action' attribute of the <form> tag in the HTML code provided by your
+            // chosen email marketing service (e.g., MailerLite, Brevo, ConvertKit, etc.).
+            //
+            // IT WILL NOT WORK WITH THIS PLACEHOLDER.
+            //
+            // Example: const FORM_ACTION_URL = 'https://assets.mailerlite.com/jsonp/your_account_id/forms/your_form_id/subscribe';
+            // (The above is just an EXAMPLE structure, yours will be different!)
+            // -----------------------------------------------------------------------------
             const FORM_ACTION_URL = 'YOUR_EMAIL_SERVICE_FORM_ACTION_URL_HERE';
             // -----------------------------------------------------------------------------
 
@@ -243,7 +252,7 @@
                 submitButton.textContent = 'Processing...';
 
                 const email = emailInput.value.trim();
-                const name = nameInput.value.trim();
+                // const name = nameInput ? nameInput.value.trim() : ''; // Get name if field exists and is used
 
                 // Basic client-side validation
                 if (!email) {
@@ -260,48 +269,72 @@
                 }
 
                 // Prepare data for submission
-                // FormData is suitable for 'application/x-www-form-urlencoded' or 'multipart/form-data'
-                // which is what most email marketing service embeddable forms expect.
-                const formData = new FormData(form); // This automatically picks up all named fields in the form
+                // FormData constructor conveniently captures all named fields from the form.
+                // Ensure your HTML input 'name' attributes are correctly set as per your email service.
+                const formData = new FormData(form);
 
-                // You can also manually append if needed, or if you're not using input names directly:
-                // formData.append(emailInput.name, email); // 'emailInput.name' gets the name attribute from HTML
-                // if (name) {
-                //     formData.append(nameInput.name, name);
-                // }
-                // Add any other hidden fields your service might require if not already in HTML
-                // formData.append('list_id', 'YOUR_LIST_ID_HERE');
+                // --- DEBUGGING: Log FormData to Console ---
+                // Open your browser's developer console (usually F12) to see what's being sent.
+                // This helps verify that the field names (e.g., "email_field_name_from_service")
+                // are what your email service expects.
+                console.log('Form data being sent:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
+                // You can also log it as an object:
+                // console.log(Object.fromEntries(formData));
+                // --- END DEBUGGING ---
 
                 displayFeedback('Submitting your details...', 'info');
 
                 // Using Fetch API to submit the form data
                 fetch(FORM_ACTION_URL, {
-                    method: 'POST',
+                    method: 'POST', // Most email form submissions use POST
                     body: formData,
-                    // Some services' simple form endpoints might work better without specific headers,
-                    // or might require 'application/x-www-form-urlencoded'.
-                    // If you face issues, consult your email service's documentation for their form endpoints.
-                    // mode: 'no-cors' // IMPORTANT: Use 'no-cors' ONLY if you get CORS errors AND
-                                     // your email service's simple form endpoint is designed for it.
-                                     // 'no-cors' means your JS won't be able to read the response,
-                                     // so you typically assume success if no network error occurs.
+                    // Headers:
+                    // For FormData, browsers typically set the 'Content-Type' header automatically
+                    // to 'multipart/form-data' or 'application/x-www-form-urlencoded'.
+                    // Usually, you don't need to set it manually for simple form posts.
+                    //
+                    // Mode 'no-cors':
+                    // Use 'no-cors' ONLY if your email service's form endpoint is designed for it
+                    // AND you are getting CORS errors. 'no-cors' means your JavaScript won't
+                    // be able to read the actual response from the server (it becomes "opaque").
+                    // You would then typically assume success if no network error is thrown by fetch.
+                    // Try WITHOUT 'mode: no-cors' first.
+                    // mode: 'no-cors',
                 })
                 .then(response => {
-                    // With 'no-cors', response.ok and response.status will be unreliable (0 or false).
-                    // So, if using 'no-cors', we often proceed to success message if fetch itself doesn't throw.
-                    if (response.ok || response.type === 'opaque') { // 'opaque' indicates a 'no-cors' success
-                        displayFeedback('Thank you for subscribing! Please check your email to confirm (if double opt-in is enabled).', 'success');
+                    // If using 'mode: no-cors', response.ok will be false and response.status will be 0.
+                    // So, we check response.type === 'opaque' for 'no-cors' "success".
+                    if (response.ok || response.type === 'opaque') {
+                        displayFeedback('Thank you for subscribing! Please check your email to confirm (if double opt-in is enabled by the service).', 'success');
                         form.reset(); // Clear the form fields
                     } else {
-                        // Attempt to get more specific error info if not an opaque response
+                        // If not 'no-cors' and not ok, try to get more specific error info.
+                        // The 405 error you saw would be caught here if not using 'no-cors'.
                         return response.text().then(text => {
-                           throw new Error(`Server responded with ${response.status}: ${text || 'No additional details'}`);
+                           // Construct a more informative error message
+                           let errorDetails = `Server responded with status ${response.status}.`;
+                           if (text) {
+                               // Avoid dumping full HTML into the message if it's long
+                               errorDetails += ` Response: ${text.substring(0, 200)}${text.length > 200 ? '...' : ''}`;
+                           }
+                           throw new Error(errorDetails);
                         });
                     }
                 })
                 .catch(error => {
-                    console.error('Form submission error:', error);
-                    displayFeedback(`An error occurred: ${error.message}. Please try again. If the problem persists, contact us.`, 'error');
+                    console.error('Form submission error:', error); // Log the full error to console for debugging
+                    // Display a user-friendly error message
+                    let userMessage = 'An error occurred while subscribing. Please try again.';
+                    if (error.message && error.message.includes('status 405')) {
+                        userMessage = 'Submission failed (Error 405: Method Not Allowed). Please check the form configuration or contact support.';
+                    } else if (error.message) {
+                        // Include a snippet of the error if it's not too technical
+                        userMessage = `Error: ${error.message.split(':')[0]}. Please try again.`;
+                    }
+                    displayFeedback(userMessage, 'error');
                 })
                 .finally(() => {
                     resetSubmitButton();
@@ -323,6 +356,20 @@
             function resetSubmitButton() {
                 submitButton.disabled = false;
                 submitButton.textContent = 'Subscribe Now';
+            }
+
+            // Fill in placeholders in the HTML
+            const gameNameElements = document.querySelectorAll('strong');
+            gameNameElements.forEach(el => {
+                if (el.textContent.includes('[Your Game Name Here]')) {
+                    el.textContent = el.textContent.replace('[Your Game Name Here]', 'My Awesome Game'); // Replace with your actual game name
+                }
+            });
+            const footerText = document.querySelector('.page-footer p');
+            if (footerText) {
+                footerText.innerHTML = footerText.innerHTML
+                    .replace('[Your Name/Studio Name Here]', 'My Indie Studio') // Replace with your actual name/studio
+                    .replace('YOUR_ITCH_IO_PAGE_LINK_HERE', 'https://myusername.itch.io/mygame'); // Replace with your itch.io link
             }
         });
     </script>
